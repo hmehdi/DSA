@@ -1,0 +1,34 @@
++-------------------+
+|       User        |
++-------------------+
+| - paymentId:String
+| - creditCardId:String
+| - debitCardId:String
+| - amount:double
++-------------------+
+      |       |
+      |       |
++-------------------+     +-------------------+
+|      Payment      |<--->|     CreditCard    |
++-------------------+     +-------------------+
+      |       |
+      |       |
++-------------------+     +-------------------+
+|      DebitCard    |<--->|      API Service   |
++-------------------+     +-------------------+
+
+
+
+User->Payment: creates payment object
+Payment->CreditCard: set credit card details
+Payment->DebitCard: set debit card details
+Payment->CreditCard: process payment
+Payment->DebitCard: process payment
+CreditCard->API: sends request to payment API
+DebitCard->API: sends request to payment API
+API-->CreditCard: responds with transaction result
+API-->DebitCard: responds with transaction result
+CreditCard-->Payment: transaction result received
+DebitCard-->Payment: transaction result received
+Payment-->User: displays payment status
+
